@@ -1,0 +1,284 @@
+50marks
+-41 marks->16mcqs,25->5m programs
+Create Collection “employees” with following data
+[{_id: 1,name: "Eric",age: 30,position: "Full Stack Developer",salary: 60000},
+{_id: 2,name: "Erica",age: 35,position: "Intern",salary: 8000},
+{_id: 3,name: "Erical",age: 40,position: "UX/UI Designer",salary: 56000},
+{_id: 4,name: "treric7",age: 37,position: "Team Leader",salary: 85000},
+{_id: 5,name: "Eliza",age: 25,position: "Software Developer",salary: 45000},
+{_id: 6,name: "Trian",age: 29,position: "Data Scientist",salary: 75000},
+{_id: 7,name: "Elizan",age: 25,position: "Full Stack Developer",salary: 49000}]
+1)	Find All Documents
+2)	Find Documents by Position “Full Stack Developer”:
+3)	Retrieve name of employees whose age is greater than or equal to 25 and less than or equal to 40.
+4)	Retrieve name of the employee with the highest salary.
+5)	Retrieve employees with a salary greater than 50000.
+6)	Count the number of employees who have salary greater than 50000 
+7)	Retrieve employees who are either " Software Developer" or "Full Stack Developer" and are  below 30 years.
+8)	Increase the salary of an employee who has salary less than 50000 by 10%.
+9)	Delete all employees who are older than 50.
+10)	Give a 5% salary raise to all "Data Scientist"
+
+1) db.employess.insertMany([{_id:1,name:"Eric",age:30,position:"fsd",salary:60000},{_idljub6> db.employess.insertMany([{_id:1,name:"Eric",age:30,position:"fsd",salary:60000ljub6> db.employess.insertMany([{_id:1,nameljuljub6> dbljuljuljub6> db.employess.insertMany([{_id:1,name:"Eric",age:30,position:"fsd",salary:60000},{_id:2,name:"Erica",age:35,position:"intern",salary:80000},{_id:3,name:"Erical",age:40,position:"UX/UI Designer",salary:56000},{_id:4,name:"treric7",age:37,position:"Team Leader",salary:85000},{_id:5,name:"Eliza",age:25,position:"software Developer",salary:45000},{_id:6,name:"Trian",age:29,position:"Data Scientist",salary:75000},{_id:7,name:"Elizan",age:25,position:"fsd",salary:49000}])
+{
+  acknowledged: true,
+  insertedIds: { '0': 1, '1': 2, '2': 3, '3': 4, '4': 5, '5': 6, '6': 7 }
+}
+ljub6> db.employess.find()
+[
+  { _id: 1, name: 'Eric', age: 30, position: 'fsd', salary: 60000 },
+  { _id: 2, name: 'Erica', age: 35, position: 'intern', salary: 80000 },
+  {
+    _id: 3,
+    name: 'Erical',
+    age: 40,
+    position: 'UX/UI Designer',
+    salary: 56000
+  },
+  {
+    _id: 4,
+    name: 'treric7',
+    age: 37,
+    position: 'Team Leader',
+    salary: 85000
+  },
+  {
+    _id: 5,
+    name: 'Eliza',
+    age: 25,
+    position: 'software Developer',
+    salary: 45000
+  },
+  {
+    _id: 6,
+    name: 'Trian',
+    age: 29,
+    position: 'Data Scientist',
+    salary: 75000
+  },
+  { _id: 7, name: 'Elizan', age: 25, position: 'fsd', salary: 49000 }
+]
+
+2) db.employess.find({position:"fsd"})
+[
+  { _id: 1, name: 'Eric', age: 30, position: 'fsd', salary: 60000 },
+  { _id: 7, name: 'Elizan', age: 25, position: 'fsd', salary: 49000 }
+]
+
+3) db.employess.find({age:{$gte:25,$lte:40}},{name:1,_id:0})
+[
+  { name: 'Eric' },
+  { name: 'Erica' },
+  { name: 'Erical' },
+  { name: 'treric7' },
+  { name: 'Eliza' },
+  { name: 'Trian' },
+  { name: 'Elizan' }
+]
+
+4) db.employess.find({},{name:1,_id:0}.sort({salary:-1}).limit(1)
+
+5)db.employess.find({salary:{$gt:50000}}).count()
+
+6) db.employess.find({$and:[{$or:[{position:"fsd"},{position:"software Developer"}]},{age:{$lt:30}}]})
+[
+  {
+    _id: 5,
+    name: 'Eliza',
+    age: 25,
+    position: 'software Developer',
+    salary: 45000
+  },
+  { _id: 7, name: 'Elizan', age: 25, position: 'fsd', salary: 49000 }
+]
+
+7) db.employess.updateOne({salary:{$lt:50000}},{$mul:{salary:1.1}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+
+8)db.employees.updateOne({salary:{lt:50000}},{$mul:{salary:0.9}})
+
+9)db.employess.deleteMany({age:{$gt:50}})
+
+10)db.employees.updateMany({position:"Data Scientist"},{$mul:{salary:1.05}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+
+
+Aggregation
+db.ljustudents.insertMany([{name:"A",city:"Amd",marks:80,branch:"cse"},{name:"b",city:"surat",marks:84,branch:"CE"},{name:"C",city:"rajkot",age:89,branch:"CSE"},{name:"D",city:"Amd",age:78,branch:"CE"},{name:"E",city:"surat",age:93,branch:"CSE"}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId("6a43448b7253b66f3519e7a5"),
+    '1': ObjectId("6a43448b7253b66f3519e7a6"),
+    '2': ObjectId("6a43448b7253b66f3519e7a7"),
+    '3': ObjectId("6a43448b7253b66f3519e7a8"),
+    '4': ObjectId("6a43448b7253b66f3519e7a9")
+  }
+}
+ljub6> db.ljustudents.find()
+[
+  {
+    _id: ObjectId("6a43448b7253b66f3519e7a5"),
+    name: 'A',
+    city: 'Amd',
+    marks: 80,
+    branch: 'cse'
+  },
+  {
+    _id: ObjectId("6a43448b7253b66f3519e7a6"),
+    name: 'b',
+    city: 'surat',
+    marks: 84,
+    branch: 'CE'
+  },
+  {
+    _id: ObjectId("6a43448b7253b66f3519e7a7"),
+    name: 'C',
+    city: 'rajkot',
+    age: 89,
+    branch: 'CSE'
+  },
+  {
+    _id: ObjectId("6a43448b7253b66f3519e7a8"),
+    name: 'D',
+    city: 'Amd',
+    age: 78,
+    branch: 'CE'
+  },
+  {
+    _id: ObjectId("6a43448b7253b66f3519e7a9"),
+    name: 'E',
+    city: 'surat',
+    age: 93,
+    branch: 'CSE'
+  }
+]
+
+ljub6> db.ljustudents.aggregate([{$match:{branch:"CSE"}}])
+[
+  {
+    _id: ObjectId("6a43448b7253b66f3519e7a7"),
+    name: 'C',
+    city: 'rajkot',
+    age: 89,
+    branch: 'CSE'
+  },
+  {
+    _id: ObjectId("6a43448b7253b66f3519e7a9"),
+    name: 'E',
+    city: 'surat',
+    age: 93,
+    branch: 'CSE'
+  }
+]
+ db.ljustudents.aggregate([{$group:{_id:"$branch",total:{$sum:1}}}])
+[
+  { _id: 'CE', total: 2 },
+  { _id: 'CSE', total: 2 },
+  { _id: 'cse', total: 1 }
+]
+db.ljustudents.aggregate([{$group:{_id:"$city",average:{$avg:"$marks"}}}])
+[
+  { _id: 'surat', average: 84 },
+  { _id: 'rajkot', average: null },
+  { _id: 'Amd', average: 80 }
+]
+ db.ljustudents.aggregate([{$sort:{marks:-1}}])
+[
+  {
+    _id: ObjectId("6a43448b7253b66f3519e7a6"),
+    name: 'b',
+    city: 'surat',
+    marks: 84,
+    branch: 'CE'
+  },
+  {
+    _id: ObjectId("6a43448b7253b66f3519e7a5"),
+    name: 'A',
+    city: 'Amd',
+    marks: 80,
+    branch: 'cse'
+  },
+  {
+    _id: ObjectId("6a43448b7253b66f3519e7a7"),
+    name: 'C',
+    city: 'rajkot',
+    age: 89,
+    branch: 'CSE'
+  },
+  {
+    _id: ObjectId("6a43448b7253b66f3519e7a8"),
+    name: 'D',
+    city: 'Amd',
+    age: 78,
+    branch: 'CE'
+  },
+  {
+    _id: ObjectId("6a43448b7253b66f3519e7a9"),
+    name: 'E',
+    city: 'surat',
+    age: 93,
+    branch: 'CSE'
+  }
+]
+
+ db.ljustudents.aggregate([{$project:{name:1,branch:1,_id:1}}])
+[
+  {
+    _id: ObjectId("6a43448b7253b66f3519e7a5"),
+    name: 'A',
+    branch: 'cse'
+  },
+  {
+    _id: ObjectId("6a43448b7253b66f3519e7a6"),
+    name: 'b',
+    branch: 'CE'
+  },
+  {
+    _id: ObjectId("6a43448b7253b66f3519e7a7"),
+    name: 'C',
+    branch: 'CSE'
+  },
+  {
+    _id: ObjectId("6a43448b7253b66f3519e7a8"),
+    name: 'D',
+    branch: 'CE'
+  },
+  {
+    _id: ObjectId("6a43448b7253b66f3519e7a9"),
+    name: 'E',
+    branch: 'CSE'
+  }
+]
+
+**Select the students branch wise where marks are>=80 and calculate the count of the students and total marks
+of the students.Display branch and total marks in descending order of total marks**
+
+db.ljustudents.aggregate([{$match:{marks:{$gte:80}}},{$group:{_id:"$branch",studentcount:{$sum:1},totalmarks:{$sum:"$marks"}}},{$sort:{totalmarks:-1}},{$project:{branch:"$_id",_id:0,totalmarks:"$totalmarks"}}])
+[ { branch: 'CE', totalmarks: 84 }, { branch: 'cse', totalmarks: 80 } ]
+ db.ljustudents.aggregate([{$match:{marks:{$gte:80}}},{$group:{_id:"$branch",studentcount:{$sum:1},totalmarks:{$sum:"$marks"}}},{$sort:{totalmarks:-1}},{$project:{branch:"$_id",_id:0,totalmarks:"$totalmarks",studentcount:1}}])
+[
+  { studentcount: 1, branch: 'CE', totalmarks: 84 },
+  { studentcount: 1, branch: 'cse', totalmarks: 80 }
+]
+
+
+**Select the students branch wise where marks are<=90 and calculate the average marks and display students with the 
+highest marks. Display city,highest marks,average marks in ascending order of average**
+ db.ljustudents.aggregate([{$match:{marks:{$lte:90}}},{$group:{_id:"$city",average:{$avg:"$marks"},highestmarks:{$max:"$marks"}}},{$sort:{average:1}},{$project:{city:"$_id",_id:0,average:1,highestmarks:1}}])
+[
+  { average: 80, highestmarks: 80, city: 'Amd' },
+  { average: 84, highestmarks: 84, city: 'surat' }
+]
